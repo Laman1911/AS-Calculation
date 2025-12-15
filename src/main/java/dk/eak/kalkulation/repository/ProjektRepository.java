@@ -1,12 +1,14 @@
 package dk.eak.kalkulation.repository;
 
 import dk.eak.kalkulation.model.Projekt;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@Profile("dev")
 public class ProjektRepository {
     private final JdbcTemplate jdbc;
 

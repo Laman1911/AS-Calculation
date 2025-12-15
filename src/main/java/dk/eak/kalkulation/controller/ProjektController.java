@@ -2,11 +2,13 @@ package dk.eak.kalkulation.controller;
 
 import dk.eak.kalkulation.model.Projekt;
 import dk.eak.kalkulation.service.ProjektService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@Profile("dev")
 @RequestMapping("/projekter")
 public class ProjektController {
     private final ProjektService service;

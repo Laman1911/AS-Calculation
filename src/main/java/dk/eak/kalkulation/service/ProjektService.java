@@ -3,10 +3,12 @@ package dk.eak.kalkulation.service;
 import dk.eak.kalkulation.model.Projekt;
 import dk.eak.kalkulation.repository.ProjektRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+@Profile("dev")
 public class ProjektService {
 
     @Autowired

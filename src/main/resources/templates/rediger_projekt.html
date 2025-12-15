@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rediger Projekt</title>
+</head>
+<body>
+
+<h1>Rediger Projekt</h1>
+
+<form th:action="@{/projekter/rediger}" th:object="${projekt}" method="post">
+
+    <input type="hidden" th:field="*{projektid}" />
+
+    Navn: <input type="text" th:field="*{name}" /><br/><br/>
+
+    Beskrivelse: <input type="text" th:field="*{description}" /><br/><br/>
+
+    Startdato: <input type="date" th:field="*{startDate}" /><br/><br/>
+
+    Slutdato: <input type="date" th:field="*{endDate}" /><br/><br/>
+
+    <button type="submit">Gem ændringer</button>
+
+</form>
+
+</body>
+</html>

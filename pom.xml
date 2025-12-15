@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dk.eak</groupId>
-    <artifactId>projectcalculator</artifactId>
+    <artifactId>projekt_kalkulator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>kalkulation</name>
     <description>kalkulation</description>

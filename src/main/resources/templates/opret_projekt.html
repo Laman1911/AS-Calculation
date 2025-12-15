@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Opret Projekt</title>
+</head>
+<body>
+
+<h1>Opret nyt projekt</h1>
+
+<form th:action="@{/projekter/opret}" th:object="${projekt}" method="post">
+
+    Navn: <input type="text" th:field="*{name}" /><br/><br/>
+
+    Beskrivelse: <input type="text" th:field="*{description}" /><br/><br/>
+
+    Startdato: <input type="date" th:field="*{startDate}" /><br/><br/>
+
+    Slutdato: <input type="date" th:field="*{endDate}" /><br/><br/>
+
+    <button type="submit">Opret</button>
+
+</form>
+
+</body>
+</html>
+/html>

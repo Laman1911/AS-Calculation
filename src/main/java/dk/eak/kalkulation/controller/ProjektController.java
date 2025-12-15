@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@Profile("dev")
+
 @RequestMapping("/projekter")
 public class ProjektController {
     private final ProjektService service;

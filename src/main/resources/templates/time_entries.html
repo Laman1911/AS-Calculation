@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Time entries</title></head>
+<body>
+<h2>Time entries for task: <span th:text="${task.name}"></span> (ID <span th:text="${task.opgaveId}"></span>)</h2>
+
+<p>
+  <a th:href="@{/projects/{pid}/tasks(pid=${task.projektId})}">Back to tasks</a>
+</p>
+
+<h3>Add time</h3>
+<form th:action="@{/tasks/{id}/time(id=${task.opgaveId})}" th:object="${timeForm}" method="post">
+  <div>Date: <input type="date" th:field="*{workDate}"/></div>
+  <div>Hours: <input type="number" min="0" th:field="*{hours}"/></div>
+  <button type="submit">Add</button>
+</form>
+
+<hr/>
+
+<table border="1" cellpadding="6">
+  <tr><th>Date</th><th>Hours</th><th>Delete</th></tr>
+  <tr th:each="e : ${entries}">
+    <td th:text="${e.workDate}"></td>
+    <td th:text="${e.hours}"></td>
+    <td>
+      <form th:action="@{/tasks/{oid}/time/{tid}/delete(oid=${task.opgaveId}, tid=${e.timeEntryId})}" method="post">
+        <button type="submit">X</button>
+      </form>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

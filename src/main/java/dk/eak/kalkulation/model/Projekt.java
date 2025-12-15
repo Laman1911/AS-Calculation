@@ -39,4 +39,5 @@ public class Projekt {
         this.endDate = endDate;
     }
 
+
 }

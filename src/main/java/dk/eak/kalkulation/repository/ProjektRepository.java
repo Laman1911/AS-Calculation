@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@Profile("dev")
+
 public class ProjektRepository {
     private final JdbcTemplate jdbc;
 
@@ -71,4 +71,20 @@ public class ProjektRepository {
         String sql = "DELETE FROM projekt WHERE projektid = ?";
         jdbc.update(sql, id);
     }
+    public Projekt findById(int projektId) {
+        String sql = "SELECT * FROM project WHERE project_id = ?";
+        return jdbc.queryForObject(sql, (rs, rowNum) -> {
+            Projekt p = new Projekt();
+            p.setProjektid(rs.getInt("project_id"));
+            p.setName(rs.getString("name"));
+            p.setDescription(rs.getString("description"));
+            p.setStartDate(rs.getDate("start_date") != null ? rs.getDate("start_date").toLocalDate() : null);
+            p.setEndDate(rs.getDate("end_date") != null ? rs.getDate("end_date").toLocalDate() : null);
+            return p;
+        }, projektId);
+    }
+
+
+
+
 }

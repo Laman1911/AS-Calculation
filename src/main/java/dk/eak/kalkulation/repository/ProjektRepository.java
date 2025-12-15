@@ -18,7 +18,7 @@ public class ProjektRepository {
 
     // 1. CREATE
     public void create(Projekt projekt) {
-        String sql = "INSERT INTO projekt (name, description, start_date, end_date) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO project (name, description, start_date, end_date) VALUES (?, ?, ?, ?)";
         jdbc.update(sql,
                 projekt.getName(),
                 projekt.getDescription(),

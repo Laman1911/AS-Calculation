@@ -1,7 +1,7 @@
 INSERT INTO project(name, description, start_date, end_date)
 VALUES ('Demo Project', 'Alpha Solutions kalkulation demo', '2025-12-01', '2025-12-20');
 
-INSERT INTO opgave(projekt_id, del_project_id, name, description, estimated_hours, deadline)
+INSERT INTO opgave(project_id, del_project_id, name, description, estimated_hours, deadline)
 VALUES
     (1, NULL, 'Setup DB', 'Create schema + testdata', 6, '2025-12-03'),
     (1, NULL, 'CRUD UI', 'Thymeleaf pages', 10, '2025-12-10');

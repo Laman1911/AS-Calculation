@@ -13,24 +13,24 @@ CREATE TABLE project (
 
 CREATE TABLE del_project (
                              del_project_id INT AUTO_INCREMENT PRIMARY KEY,
-                             projekt_id INT NOT NULL,
+                             project_id INT NOT NULL,
                              name VARCHAR(100) NOT NULL,
                              description VARCHAR(500),
                              CONSTRAINT fk_del_project_project
-                                 FOREIGN KEY (projekt_id) REFERENCES project(project_id)
+                                 FOREIGN KEY (project_id) REFERENCES project(project_id)
                                      ON DELETE CASCADE
 );
 
 CREATE TABLE opgave (
                         opgave_id INT AUTO_INCREMENT PRIMARY KEY,
-                        projekt_id INT NOT NULL,
+                        project_id INT NOT NULL,
                         del_project_id INT NULL,
                         name VARCHAR(120) NOT NULL,
                         description VARCHAR(500),
                         estimated_hours INT DEFAULT 0,
                         deadline DATE NULL,
                         CONSTRAINT fk_opgave_project
-                            FOREIGN KEY (projekt_id) REFERENCES project(project_id)
+                            FOREIGN KEY (project_id) REFERENCES project(project_id)
                                 ON DELETE CASCADE,
                         CONSTRAINT fk_opgave_del_project
                             FOREIGN KEY (del_project_id) REFERENCES del_project(del_project_id)

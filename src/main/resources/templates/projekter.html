@@ -9,29 +9,43 @@
 <h1>All Projects</h1>
 
 <a th:href="@{/projekter/opret}">➕ Opret projekt</a>
+
 <br/><br/>
 
 <table border="1" cellpadding="6">
+    <thead>
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Description</th>
         <th>Actions</th>
     </tr>
+    </thead>
 
+    <tbody>
     <tr th:each="p : ${projekts}">
-        <td th:text="${p.projectid}"></td>
+        <td th:text="${p.projectId}"></td>
         <td th:text="${p.name}"></td>
         <td th:text="${p.description}"></td>
         <td>
-            <a th:href="@{'/projekter/rediger/' + ${p.projectid}}">Rediger</a>
+            <a th:href="@{'/projekter/rediger/' + ${p.projectId}}">Rediger</a>
             |
-            <a th:href="@{'/projekter/slet/' + ${p.projectid}}"
-               onclick="return confirm('Er du sikker på at du vil slette dette projekt?');">
+            <a th:href="@{'/projekter/slet/' + ${p.projectId}}"
+               onclick="return confirm('Er du sikker?');">
                 Slet
+            </a>
+            |
+            <a th:href="@{'/projekter/' + ${p.projectId} + '/calc'}">
+                Calc
+            </a>
+            |
+            <a th:href="@{'/opgaver/' + ${p.projectId}}">
+                Tasks
             </a>
         </td>
     </tr>
+    </tbody>
 </table>
 
 </body>
+</html>

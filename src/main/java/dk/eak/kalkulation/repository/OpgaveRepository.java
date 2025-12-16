@@ -9,26 +9,28 @@ import java.util.List;
 
 @Repository
 public class OpgaveRepository {
+
     private final JdbcTemplate jdbc;
 
-    public OpgaveRepository(JdbcTemplate jdbc) { this.jdbc = jdbc; }
+    public OpgaveRepository(JdbcTemplate jdbc) {
+        this.jdbc = jdbc;
+    }
 
-    public List<Opgave> findByProjektId(int projektId) {
-        String sql = "SELECT * FROM opgave WHERE projekt_id = ? ORDER BY opgave_id";
+    public List<Opgave> findByProjectId(int projectId) {
+        String sql = "SELECT * FROM opgave WHERE project_id = ? ORDER BY opgave_id";
         return jdbc.query(sql, (rs, rn) -> {
             Opgave o = new Opgave();
             o.setOpgaveId(rs.getInt("opgave_id"));
-            o.setProject_id(rs.getInt("projekt_id"));
+            o.setProject_id(rs.getInt("project_id"));          // ✅ FIX
             int dp = rs.getInt("del_project_id");
             o.setDelProjektId(rs.wasNull() ? null : dp);
             o.setName(rs.getString("name"));
             o.setDescription(rs.getString("description"));
-            int eh = rs.getInt("estimated_hours");
-            o.setEstimatedHours(rs.wasNull() ? 0 : eh);
+            o.setEstimatedHours(rs.getInt("estimated_hours"));
             Date dl = rs.getDate("deadline");
             o.setDeadline(dl != null ? dl.toLocalDate() : null);
             return o;
-        }, projektId);
+        }, projectId);
     }
 
     public Opgave findById(int opgaveId) {
@@ -36,13 +38,12 @@ public class OpgaveRepository {
         return jdbc.queryForObject(sql, (rs, rn) -> {
             Opgave o = new Opgave();
             o.setOpgaveId(rs.getInt("opgave_id"));
-            o.setProject_id(rs.getInt("projekt_id"));
+            o.setProject_id(rs.getInt("project_id"));          // ✅ FIX
             int dp = rs.getInt("del_project_id");
             o.setDelProjektId(rs.wasNull() ? null : dp);
             o.setName(rs.getString("name"));
             o.setDescription(rs.getString("description"));
-            int eh = rs.getInt("estimated_hours");
-            o.setEstimatedHours(rs.wasNull() ? 0 : eh);
+            o.setEstimatedHours(rs.getInt("estimated_hours"));
             Date dl = rs.getDate("deadline");
             o.setDeadline(dl != null ? dl.toLocalDate() : null);
             return o;
@@ -51,10 +52,12 @@ public class OpgaveRepository {
 
     public void create(Opgave o) {
         String sql = """
-            INSERT INTO opgave (projekt_id, del_project_id, name, description, estimated_hours, deadline)
+            INSERT INTO opgave
+            (project_id, del_project_id, name, description, estimated_hours, deadline)
             VALUES (?,?,?,?,?,?)
         """;
-        jdbc.update(sql,
+        jdbc.update(
+                sql,
                 o.getProject_id(),
                 o.getDelProjektId(),
                 o.getName(),
@@ -70,7 +73,8 @@ public class OpgaveRepository {
             SET del_project_id=?, name=?, description=?, estimated_hours=?, deadline=?
             WHERE opgave_id=?
         """;
-        jdbc.update(sql,
+        jdbc.update(
+                sql,
                 o.getDelProjektId(),
                 o.getName(),
                 o.getDescription(),

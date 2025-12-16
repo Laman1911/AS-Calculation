@@ -31,7 +31,7 @@ public class ProjektRepository {
         String sql = "SELECT * FROM project";
         return jdbc.query(sql, (rs, rowNum) -> {
             Projekt p = new Projekt();
-            p.setProjectid(rs.getInt("project_id"));
+            p.setProjectId(rs.getInt("project_id"));
             p.setName(rs.getString("name"));
             p.setDescription(rs.getString("description"));
             p.setStartDate(rs.getDate("start_date") != null ? rs.getDate("start_date").toLocalDate() : null);
@@ -45,7 +45,7 @@ public class ProjektRepository {
         String sql = "SELECT * FROM project WHERE project_id = ?";
         return jdbc.queryForObject(sql, (rs, rowNum) -> {
             Projekt p = new Projekt();
-            p.setProjectid(rs.getInt("project_id"));
+            p.setProjectId(rs.getInt("project_id"));
             p.setName(rs.getString("name"));
             p.setDescription(rs.getString("description"));
             p.setStartDate(rs.getDate("start_date") != null ? rs.getDate("start_date").toLocalDate() : null);
@@ -62,7 +62,7 @@ public class ProjektRepository {
                 p.getDescription(),
                 p.getStartDate(),
                 p.getEndDate(),
-                p.getProjectid());
+                p.getProjectId());
     }
 
     // 5. DELETE
@@ -74,7 +74,7 @@ public class ProjektRepository {
         String sql = "SELECT * FROM project WHERE project_id = ?";
         return jdbc.queryForObject(sql, (rs, rowNum) -> {
             Projekt p = new Projekt();
-            p.setProjectid(rs.getInt("project_id"));
+            p.setProjectId(rs.getInt("project_id"));
             p.setName(rs.getString("name"));
             p.setDescription(rs.getString("description"));
             p.setStartDate(rs.getDate("start_date") != null ? rs.getDate("start_date").toLocalDate() : null);

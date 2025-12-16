@@ -3,7 +3,7 @@ import java.time.LocalDate;
 //i denne model/boks gemmer jeg data
 public class Projekt {
     private String name;
-    private int projectid;
+    private int projectId;
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -11,8 +11,8 @@ public class Projekt {
     public String getName(){
         return name;
     }
-    public int getProjectid(){
-        return projectid;
+    public int getProjectId(){
+        return projectId;
     }
     public String getDescription(){
         return description;
@@ -26,8 +26,8 @@ public class Projekt {
     public void setName(String name){
         this.name = name;
     }
-    public void setProjectid(int projektid){
-        this.projectid = projektid;
+    public void setProjectId(int projektid){
+        this.projectId = projektid;
     }
     public void setDescription(String description){
         this.description = description;

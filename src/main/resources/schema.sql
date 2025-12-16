@@ -17,7 +17,8 @@ CREATE TABLE del_project (
                              name VARCHAR(100) NOT NULL,
                              description VARCHAR(500),
                              CONSTRAINT fk_del_project_project
-                                 FOREIGN KEY (project_id) REFERENCES project(project_id)
+                                 FOREIGN KEY (project_id)
+                                     REFERENCES project(project_id)
                                      ON DELETE CASCADE
 );
 
@@ -30,10 +31,12 @@ CREATE TABLE opgave (
                         estimated_hours INT DEFAULT 0,
                         deadline DATE NULL,
                         CONSTRAINT fk_opgave_project
-                            FOREIGN KEY (project_id) REFERENCES project(project_id)
+                            FOREIGN KEY (project_id)
+                                REFERENCES project(project_id)
                                 ON DELETE CASCADE,
                         CONSTRAINT fk_opgave_del_project
-                            FOREIGN KEY (del_project_id) REFERENCES del_project(del_project_id)
+                            FOREIGN KEY (del_project_id)
+                                REFERENCES del_project(del_project_id)
                                 ON DELETE SET NULL
 );
 
@@ -43,6 +46,7 @@ CREATE TABLE time_entry (
                             work_date DATE NOT NULL,
                             hours INT NOT NULL,
                             CONSTRAINT fk_time_opgave
-                                FOREIGN KEY (opgave_id) REFERENCES opgave(opgave_id)
+                                FOREIGN KEY (opgave_id)
+                                    REFERENCES opgave(opgave_id)
                                     ON DELETE CASCADE
 );

@@ -1,21 +1,41 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Calculation</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Calculation</title>
+</head>
 <body>
-<h2>Calculation for project: <span th:text="${projekt.name}"></span></h2>
+
+<h2>
+  Calculation for project:
+  <span th:text="${projekt.name}"></span>
+</h2>
 
 <p>
-  <a th:href="@{/projects}">Back to projects</a> |
-  <a th:href="@{/projects/{id}/tasks(id=${projekt.projectId})}">Tasks</a>
+  <a th:href="@{/projekter}">Back to projects</a>
+  |
+  <a th:href="@{/opgaver/{id}(id=${projekt.projectId})}">Tasks</a>
 </p>
 
 <ul>
-  <li>Estimated total hours: <b th:text="${estimatedTotal}"></b></li>
-  <li>Registered hours: <b th:text="${registeredTotal}"></b></li>
-  <li>Remaining hours: <b th:text="${remaining}"></b></li>
-  <li>Required hours / workday (Mon-Fri): <b th:text="${#numbers.formatDecimal(requiredPerDay,1,2)}"></b></li>
+  <li>Estimated total hours:
+    <b th:text="${estimatedTotal}"></b>
+  </li>
+  <li>Registered hours:
+    <b th:text="${registeredTotal}"></b>
+  </li>
+  <li>Remaining hours:
+    <b th:text="${remaining}"></b>
+  </li>
+  <li>
+    Required hours / workday (Mon–Fri):
+    <b th:text="${#numbers.formatDecimal(requiredPerDay,1,2)}"></b>
+  </li>
 </ul>
 
-<p><i>Required hours/day hesabı: remainingHours / workingDays(start..end).</i></p>
+<p>
+  <i>Required hours/day hesabı: remainingHours / workingDays(start..end)</i>
+</p>
+
 </body>
 </html>

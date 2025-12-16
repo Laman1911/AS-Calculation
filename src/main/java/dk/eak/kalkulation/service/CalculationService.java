@@ -22,7 +22,7 @@ public class CalculationService {
     }
 
     public int totalEstimatedHours(int projektId) {
-        List<Opgave> tasks = opgaveRepo.findByProjektId(projektId);
+        List<Opgave> tasks = opgaveRepo.findByProjectId(projektId);
         return tasks.stream().mapToInt(o -> o.getEstimatedHours() != null ? o.getEstimatedHours() : 0).sum();
     }
 
@@ -54,7 +54,7 @@ public class CalculationService {
         if (p == null || p.getStartDate() == null || p.getEndDate() == null) return 0.0;
         int days = workingDaysBetween(p.getStartDate(), p.getEndDate());
         if (days == 0) return 0.0;
-        int remaining = remainingEstimatedHours(p.getProjectid());
+        int remaining = remainingEstimatedHours(p.getProjectId());
         return remaining / (double) days;
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/projects/{projektId}/calc")
+@RequestMapping("/projekter/{projectId}/calc")
 public class CalculationController {
 
     private final ProjektRepository projektRepo;
@@ -19,15 +19,15 @@ public class CalculationController {
     }
 
     @GetMapping
-    public String view(@PathVariable int projektId, Model model) {
-        var p = projektRepo.findById(projektId);
+    public String view(@PathVariable int projectId, Model model) {
+        var p = projektRepo.findById(projectId);
 
         model.addAttribute("projekt", p);
-        model.addAttribute("estimatedTotal", calc.totalEstimatedHours(projektId));
-        model.addAttribute("registeredTotal", calc.totalRegisteredHours(projektId));
-        model.addAttribute("remaining", calc.remainingEstimatedHours(projektId));
+        model.addAttribute("estimatedTotal", calc.totalEstimatedHours(projectId));
+        model.addAttribute("registeredTotal", calc.totalRegisteredHours(projectId));
+        model.addAttribute("remaining", calc.remainingEstimatedHours(projectId));
         model.addAttribute("requiredPerDay", calc.requiredHoursPerWorkday(p));
+
         return "calc";
     }
 }
-

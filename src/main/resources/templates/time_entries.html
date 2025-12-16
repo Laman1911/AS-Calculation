@@ -5,7 +5,7 @@
 <h2>Time entries for task: <span th:text="${task.name}"></span> (ID <span th:text="${task.opgaveId}"></span>)</h2>
 
 <p>
-  <a th:href="@{/projects/{pid}/tasks(pid=${task.projektId})}">Back to tasks</a>
+  <a th:href="@{/projects/{pid}/tasks(pid=${task.project_id})}">Back to tasks</a>
 </p>
 
 <h3>Add time</h3>

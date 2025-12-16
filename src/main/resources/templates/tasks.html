@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"><title>Tasks</title></head>
 <body>
-<h2>Tasks for project <span th:text="${projektId}"></span></h2>
+<h2>Tasks for project <span th:text="${project_id}"></span></h2>
 
 <p>
     <a th:href="@{/projects}">Back to projects</a> |
-    <a th:href="@{/projects/{id}/calc(id=${projektId})}">View calculations</a>
+    <a th:href="@{/projects/{id}/calc(id=${project_id})}">View calculations</a>
 </p>
 
 <h3>Create task</h3>
-<form th:action="@{/projects/{id}/tasks(id=${projektId})}" th:object="${taskForm}" method="post">
+<form th:action="@{/projects/{id}/tasks(id=${project_id})}" th:object="${taskForm}" method="post">
     <div>Name: <input th:field="*{name}"/></div>
     <div>Description: <input th:field="*{description}"/></div>
     <div>Estimated hours: <input type="number" min="0" th:field="*{estimatedHours}"/></div>
@@ -32,7 +32,7 @@
         <td th:text="${t.deadline}"></td>
         <td><a th:href="@{/tasks/{id}/time(id=${t.opgaveId})}">time entries</a></td>
         <td>
-            <form th:action="@{/projects/{pid}/tasks/{tid}/delete(pid=${projektId}, tid=${t.opgaveId})}" method="post">
+            <form th:action="@{/projects/{pid}/tasks/{tid}/delete(pid=${project_id}, tid=${t.opgaveId})}" method="post">
                 <button type="submit">X</button>
             </form>
         </td>

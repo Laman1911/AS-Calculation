@@ -54,7 +54,7 @@ public class CalculationService {
         if (p == null || p.getStartDate() == null || p.getEndDate() == null) return 0.0;
         int days = workingDaysBetween(p.getStartDate(), p.getEndDate());
         if (days == 0) return 0.0;
-        int remaining = remainingEstimatedHours(p.getProjektid());
+        int remaining = remainingEstimatedHours(p.getProjectid());
         return remaining / (double) days;
     }
 }

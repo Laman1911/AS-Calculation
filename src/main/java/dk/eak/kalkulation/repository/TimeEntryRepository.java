@@ -30,7 +30,7 @@ public class TimeEntryRepository {
           SELECT COALESCE(SUM(te.hours),0) AS total
           FROM time_entry te
           JOIN opgave o ON o.opgave_id = te.opgave_id
-          WHERE o.projekt_id = ?
+          WHERE o.project_id = ?
         """;
         Integer v = jdbc.queryForObject(sql, Integer.class, projektId);
         return v == null ? 0 : v;

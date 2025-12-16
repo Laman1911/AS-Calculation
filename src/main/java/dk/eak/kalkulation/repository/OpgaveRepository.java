@@ -18,7 +18,7 @@ public class OpgaveRepository {
         return jdbc.query(sql, (rs, rn) -> {
             Opgave o = new Opgave();
             o.setOpgaveId(rs.getInt("opgave_id"));
-            o.setProjektId(rs.getInt("projekt_id"));
+            o.setProject_id(rs.getInt("projekt_id"));
             int dp = rs.getInt("del_project_id");
             o.setDelProjektId(rs.wasNull() ? null : dp);
             o.setName(rs.getString("name"));
@@ -36,7 +36,7 @@ public class OpgaveRepository {
         return jdbc.queryForObject(sql, (rs, rn) -> {
             Opgave o = new Opgave();
             o.setOpgaveId(rs.getInt("opgave_id"));
-            o.setProjektId(rs.getInt("projekt_id"));
+            o.setProject_id(rs.getInt("projekt_id"));
             int dp = rs.getInt("del_project_id");
             o.setDelProjektId(rs.wasNull() ? null : dp);
             o.setName(rs.getString("name"));
@@ -55,7 +55,7 @@ public class OpgaveRepository {
             VALUES (?,?,?,?,?,?)
         """;
         jdbc.update(sql,
-                o.getProjektId(),
+                o.getProject_id(),
                 o.getDelProjektId(),
                 o.getName(),
                 o.getDescription(),

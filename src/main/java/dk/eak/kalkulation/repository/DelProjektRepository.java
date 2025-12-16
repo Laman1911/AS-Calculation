@@ -12,21 +12,21 @@ public class DelProjektRepository {
 
     public DelProjektRepository(JdbcTemplate jdbc) { this.jdbc = jdbc; }
 
-    public List<DelProjekt> findByProjektId(int projektId) {
-        String sql = "SELECT * FROM del_project WHERE projekt_id = ? ORDER BY del_project_id";
+    public List<DelProjekt> findByProjektId(int project_id) {
+        String sql = "SELECT * FROM del_project WHERE project_id = ? ORDER BY del_project_id";
         return jdbc.query(sql, (rs, rn) -> {
             DelProjekt d = new DelProjekt();
             d.setDelProjektId(rs.getInt("del_project_id"));
-            d.setProjektId(rs.getInt("projekt_id"));
+            d.setProject_id(rs.getInt("projekt_id"));
             d.setName(rs.getString("name"));
             d.setDescription(rs.getString("description"));
             return d;
-        }, projektId);
+        }, project_id);
     }
 
     public void create(DelProjekt d) {
-        String sql = "INSERT INTO del_project (projekt_id, name, description) VALUES (?,?,?)";
-        jdbc.update(sql, d.getProjektId(), d.getName(), d.getDescription());
+        String sql = "INSERT INTO del_project (project_id, name, description) VALUES (?,?,?)";
+        jdbc.update(sql, d.getProject_id(), d.getName(), d.getDescription());
     }
 
     public void delete(int delProjektId) {

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Opgave {
     private Integer opgaveId;
-    private Integer projektId;
+    private Integer project_id;
     private Integer delProjektId; // nullable
     private String name;
     private String description;
@@ -14,8 +14,8 @@ public class Opgave {
     public Integer getOpgaveId() { return opgaveId; }
     public void setOpgaveId(Integer opgaveId) { this.opgaveId = opgaveId; }
 
-    public Integer getProjektId() { return projektId; }
-    public void setProjektId(Integer projektId) { this.projektId = projektId; }
+    public Integer getProject_id() { return project_id; }
+    public void setProject_id(Integer project_id) { this.project_id = project_id; }
 
     public Integer getDelProjektId() { return delProjektId; }
     public void setDelProjektId(Integer delProjektId) { this.delProjektId = delProjektId; }

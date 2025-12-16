@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Projects</title>
 </head>
 <body>
 
 <h1>All Projects</h1>
+
+<a th:href="@{/projekter/opret}">➕ Opret projekt</a>
+<br/><br/>
 
 <table border="1" cellpadding="6">
     <tr>
@@ -16,20 +20,18 @@
     </tr>
 
     <tr th:each="p : ${projekts}">
-        <td th:text="${p.projektid}"></td>
+        <td th:text="${p.projectid}"></td>
         <td th:text="${p.name}"></td>
         <td th:text="${p.description}"></td>
-
         <td>
-            <a th:href="@{'/projekter/rediger/' + ${p.projektid}}">Rediger</a> |
-            <a th:href="@{'/projekter/slet/' + ${p.projektid}}"
+            <a th:href="@{'/projekter/rediger/' + ${p.projectid}}">Rediger</a>
+            |
+            <a th:href="@{'/projekter/slet/' + ${p.projectid}}"
                onclick="return confirm('Er du sikker på at du vil slette dette projekt?');">
                 Slet
             </a>
         </td>
     </tr>
-
 </table>
 
 </body>
-</html>

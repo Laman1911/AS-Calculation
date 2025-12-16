@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Project details</title>
+</head>
+<body>
+
+<h1 th:text="${project.name}">Project name</h1>
+<p th:text="${project.description}">Description</p>
+
+<hr>
+
+<h2>Tilføj delprojekt</h2>
+<form th:action="@{/delprojekter/opret}" method="post">
+  <input type="hidden" name="projectId" th:value="${project.projectId}"/>
+
+  <input type="text" name="name" placeholder="Delprojekt navn" required/>
+  <input type="text" name="description" placeholder="Beskrivelse"/>
+
+  <button type="submit">Gem delprojekt</button>
+</form>
+
+<hr>
+
+<h2>Delprojekter</h2>
+
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+
+  <tr th:each="dp : ${delprojekter}">
+    <td th:text="${dp.delProjektId}"></td>
+    <td th:text="${dp.name}"></td>
+    <td th:text="${dp.description}"></td>
+    <td>
+      <!-- 🔗 DELPROJEKT → TASKS (DÜZGÜN URL) -->
+      <a th:href="@{/delprojekter/{id}/tasks(id=${dp.delProjektId})}">
+        Tasks
+      </a>
+    </td>
+  </tr>
+</table>
+
+<br>
+<a th:href="@{/projekter}">← Back to projects</a>
+
+</body>
+</html>

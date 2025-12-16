@@ -5,8 +5,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
-
 @Repository
 public class OpgaveRepository {
 
@@ -18,46 +19,25 @@ public class OpgaveRepository {
 
     public List<Opgave> findByProjectId(int projectId) {
         String sql = "SELECT * FROM opgave WHERE project_id = ? ORDER BY opgave_id";
-        return jdbc.query(sql, (rs, rn) -> {
-            Opgave o = new Opgave();
-            o.setOpgaveId(rs.getInt("opgave_id"));
-            o.setProject_id(rs.getInt("project_id"));          // ✅ FIX
-            int dp = rs.getInt("del_project_id");
-            o.setDelProjektId(rs.wasNull() ? null : dp);
-            o.setName(rs.getString("name"));
-            o.setDescription(rs.getString("description"));
-            o.setEstimatedHours(rs.getInt("estimated_hours"));
-            Date dl = rs.getDate("deadline");
-            o.setDeadline(dl != null ? dl.toLocalDate() : null);
-            return o;
-        }, projectId);
+        return mapList(sql, projectId);
     }
 
-    public Opgave findById(int opgaveId) {
+    public List<Opgave> findByDelProjektId(int delProjektId) {
+        String sql = "SELECT * FROM opgave WHERE delprojekt_id = ? ORDER BY opgave_id";
+        return mapList(sql, delProjektId);
+    }
+
+    public Opgave findById(int id) {
         String sql = "SELECT * FROM opgave WHERE opgave_id = ?";
-        return jdbc.queryForObject(sql, (rs, rn) -> {
-            Opgave o = new Opgave();
-            o.setOpgaveId(rs.getInt("opgave_id"));
-            o.setProject_id(rs.getInt("project_id"));          // ✅ FIX
-            int dp = rs.getInt("del_project_id");
-            o.setDelProjektId(rs.wasNull() ? null : dp);
-            o.setName(rs.getString("name"));
-            o.setDescription(rs.getString("description"));
-            o.setEstimatedHours(rs.getInt("estimated_hours"));
-            Date dl = rs.getDate("deadline");
-            o.setDeadline(dl != null ? dl.toLocalDate() : null);
-            return o;
-        }, opgaveId);
+        return jdbc.queryForObject(sql, (rs, rn) -> map(rs));
     }
 
     public void create(Opgave o) {
-        String sql = """
+        jdbc.update("""
             INSERT INTO opgave
-            (project_id, del_project_id, name, description, estimated_hours, deadline)
+            (project_id, delprojekt_id, name, description, estimated_hours, deadline)
             VALUES (?,?,?,?,?,?)
-        """;
-        jdbc.update(
-                sql,
+        """,
                 o.getProject_id(),
                 o.getDelProjektId(),
                 o.getName(),
@@ -67,24 +47,26 @@ public class OpgaveRepository {
         );
     }
 
-    public void update(Opgave o) {
-        String sql = """
-            UPDATE opgave
-            SET del_project_id=?, name=?, description=?, estimated_hours=?, deadline=?
-            WHERE opgave_id=?
-        """;
-        jdbc.update(
-                sql,
-                o.getDelProjektId(),
-                o.getName(),
-                o.getDescription(),
-                o.getEstimatedHours(),
-                o.getDeadline() != null ? Date.valueOf(o.getDeadline()) : null,
-                o.getOpgaveId()
-        );
+    public void delete(int id) {
+        jdbc.update("DELETE FROM opgave WHERE opgave_id = ?", id);
     }
 
-    public void delete(int opgaveId) {
-        jdbc.update("DELETE FROM opgave WHERE opgave_id = ?", opgaveId);
+    // ===== helpers =====
+    private List<Opgave> mapList(String sql, int id) {
+        return jdbc.query(sql, (rs, rn) -> map(rs), id);
+    }
+
+    private Opgave map(ResultSet rs) throws SQLException {
+        Opgave o = new Opgave();
+        o.setOpgaveId(rs.getInt("opgave_id"));
+        o.setProject_id(rs.getInt("project_id"));
+        int dp = rs.getInt("delprojekt_id");
+        o.setDelProjektId(rs.wasNull() ? null : dp);
+        o.setName(rs.getString("name"));
+        o.setDescription(rs.getString("description"));
+        o.setEstimatedHours(rs.getInt("estimated_hours"));
+        Date d = rs.getDate("deadline");
+        o.setDeadline(d != null ? d.toLocalDate() : null);
+        return o;
     }
 }

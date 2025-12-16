@@ -1,44 +1,36 @@
-<h1>Tasks for project</h1>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tasks</title>
+</head>
+<body>
+<h1>Tasks</h1>
 
-<a th:href="@{/projekter}">Back to projects</a> |
-<a th:href="@{/projekter/{id}/calc(id=${projectId})}">
-    View calculations
-</a>
+<form th:action="@{/opgaver/{id}/opret(id=${delProjektId})}" method="post">
+    <input type="hidden" name="delProjektId" th:value="${delProjektId}" />
 
-<hr>
-
-<form th:action="@{/opgaver/{id}/opret(id=${projectId})}" method="post">
-    <input type="hidden" name="projectId" th:value="${projectId}" />
-
-    Name: <input type="text" name="name"><br>
-    Description: <input type="text" name="description"><br>
+    Name: <input name="name"><br>
+    Description: <input name="description"><br>
     Estimated hours: <input type="number" name="estimatedHours"><br>
     Deadline: <input type="date" name="deadline"><br>
 
-    <button type="submit">Save</button>
+    <button>Save</button>
 </form>
 
 <hr>
 
 <table border="1">
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Hours</th>
-        <th>Deadline</th>
-        <th>Delete</th>
+        <th>ID</th><th>Name</th><th>Hours</th><th>Deadline</th>
     </tr>
-
     <tr th:each="o : ${opgaver}">
         <td th:text="${o.opgaveId}"></td>
         <td th:text="${o.name}"></td>
         <td th:text="${o.estimatedHours}"></td>
         <td th:text="${o.deadline}"></td>
-        <td>
-            <a th:href="@{/opgaver/slet/{oid}/{pid}
-                (oid=${o.opgaveId}, pid=${projectId})}">
-                X
-            </a>
-        </td>
     </tr>
 </table>
+
+
+</body>
+</html>

@@ -18,17 +18,17 @@ public class OpgaveController {
         this.repo = repo;
     }
 
-    // 📄 TASKS PAGE
+    // 📄 SHOW TASKS FOR PROJECT
     @GetMapping("/{projectId}")
-    public String tasks(@PathVariable int projectId, Model model) {
+    public String showTasks(@PathVariable int projectId, Model model) {
         model.addAttribute("projectId", projectId);
         model.addAttribute("opgaver", repo.findByProjectId(projectId));
         return "tasks";
     }
 
-    // 💾 SAVE TASK
+    // 💾 CREATE TASK
     @PostMapping("/{projectId}/opret")
-    public String saveTask(
+    public String createTask(
             @PathVariable int projectId,
             @RequestParam String name,
             @RequestParam String description,
@@ -47,9 +47,10 @@ public class OpgaveController {
         return "redirect:/opgaver/" + projectId;
     }
 
-    // ❌ DELETE
+    // ❌ DELETE TASK
     @GetMapping("/slet/{id}")
-    public String delete(@PathVariable int id, @RequestParam int projectId) {
+    public String delete(@PathVariable int id,
+                         @RequestParam int projectId) {
         repo.delete(id);
         return "redirect:/opgaver/" + projectId;
     }

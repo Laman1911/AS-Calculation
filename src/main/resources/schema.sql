@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS time_entry;
 DROP TABLE IF EXISTS opgave;
-DROP TABLE IF EXISTS del_project;
+DROP TABLE IF EXISTS delprojekt;
 DROP TABLE IF EXISTS project;
 
 CREATE TABLE project (
@@ -11,21 +11,21 @@ CREATE TABLE project (
                          end_date DATE
 );
 
-CREATE TABLE del_project (
-                             del_project_id INT AUTO_INCREMENT PRIMARY KEY,
-                             project_id INT NOT NULL,
-                             name VARCHAR(100) NOT NULL,
-                             description VARCHAR(500),
-                             CONSTRAINT fk_del_project_project
-                                 FOREIGN KEY (project_id)
-                                     REFERENCES project(project_id)
-                                     ON DELETE CASCADE
+CREATE TABLE delprojekt (
+                            delprojekt_id INT AUTO_INCREMENT PRIMARY KEY,
+                            project_id INT NOT NULL,
+                            name VARCHAR(255),
+                            description VARCHAR(255),
+                            CONSTRAINT fk_delprojekt_project
+                                FOREIGN KEY (project_id)
+                                    REFERENCES project(project_id)
+                                    ON DELETE CASCADE
 );
 
 CREATE TABLE opgave (
                         opgave_id INT AUTO_INCREMENT PRIMARY KEY,
                         project_id INT NOT NULL,
-                        del_project_id INT NULL,
+                        delprojekt_id INT NULL,
                         name VARCHAR(120) NOT NULL,
                         description VARCHAR(500),
                         estimated_hours INT DEFAULT 0,
@@ -34,9 +34,9 @@ CREATE TABLE opgave (
                             FOREIGN KEY (project_id)
                                 REFERENCES project(project_id)
                                 ON DELETE CASCADE,
-                        CONSTRAINT fk_opgave_del_project
-                            FOREIGN KEY (del_project_id)
-                                REFERENCES del_project(del_project_id)
+                        CONSTRAINT fk_opgave_delprojekt
+                            FOREIGN KEY (delprojekt_id)
+                                REFERENCES delprojekt(delprojekt_id)
                                 ON DELETE SET NULL
 );
 

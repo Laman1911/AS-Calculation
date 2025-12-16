@@ -1,6 +1,6 @@
 Alpha Solutions Project Calculator
 
-Dette projekt er udviklet som en del af KEA 2. semester eksamensprojektet.
+Dette projekt er udviklet som en del af EK 2. semester eksamensprojektet.
 
 Formål
 Applikationen skal hjælpe med at beregne og administrere projektdata for Alpha Solutions' konsulentopgaver.

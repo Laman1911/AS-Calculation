@@ -6,7 +6,7 @@ Formål
 Applikationen skal hjælpe med at beregne og administrere projektdata for Alpha Solutions' konsulentopgaver.
 
 Teknologier
-Java 17
+Java 21
 Spring Boot
 Thymeleaf
 JPA (Hibernate)

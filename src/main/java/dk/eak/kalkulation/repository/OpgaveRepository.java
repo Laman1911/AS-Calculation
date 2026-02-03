@@ -47,6 +47,22 @@ public class OpgaveRepository {
         );
     }
 
+    public void update(Opgave o) {
+        jdbc.update("""
+            UPDATE opgave
+            SET project_id = ?, delprojekt_id = ?, name = ?, description = ?, estimated_hours = ?, deadline = ?
+            WHERE opgave_id = ?
+        """,
+                o.getProject_id(),
+                o.getDelProjektId(),
+                o.getName(),
+                o.getDescription(),
+                o.getEstimatedHours(),
+                o.getDeadline() != null ? Date.valueOf(o.getDeadline()) : null,
+                o.getOpgaveId()
+        );
+    }
+
     public void delete(int id) {
         jdbc.update("DELETE FROM opgave WHERE opgave_id = ?", id);
     }

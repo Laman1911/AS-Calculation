@@ -29,6 +29,12 @@ public class DelProjektRepository {
         );
     }
 
+    // 🔹 FIND BY ID
+    public DelProjekt findById(int delProjektId) {
+        String sql = "SELECT * FROM delprojekt WHERE delprojekt_id = ?";
+        return jdbc.queryForObject(sql, (rs, rowNum) -> mapDelProjekt(rs), delProjektId);
+    }
+
     // 🔹 FIND BY PROJECT ID
     public List<DelProjekt> findByProjektId(int projectId) {
         String sql = """
@@ -37,19 +43,33 @@ public class DelProjektRepository {
             WHERE project_id = ?
         """;
 
-        return jdbc.query(sql, (rs, rowNum) -> {
-            DelProjekt dp = new DelProjekt();
-            dp.setDelProjektId(rs.getInt("delprojekt_id"));
-            dp.setProjectId(rs.getInt("project_id"));
-            dp.setName(rs.getString("name"));
-            dp.setDescription(rs.getString("description"));
-            return dp;
-        }, projectId);
+        return jdbc.query(sql, (rs, rowNum) -> mapDelProjekt(rs), projectId);
+    }
+
+    // 🔹 UPDATE
+    public void update(DelProjekt dp) {
+        String sql = "UPDATE delprojekt SET project_id = ?, name = ?, description = ? WHERE delprojekt_id = ?";
+        jdbc.update(sql,
+                dp.getProjectId(),
+                dp.getName(),
+                dp.getDescription(),
+                dp.getDelProjektId()
+        );
     }
 
     // 🔹 DELETE
     public void delete(int id) {
         String sql = "DELETE FROM delprojekt WHERE delprojekt_id = ?";
         jdbc.update(sql, id);
+    }
+
+    // Helper method to map ResultSet to DelProjekt
+    private DelProjekt mapDelProjekt(java.sql.ResultSet rs) throws java.sql.SQLException {
+        DelProjekt dp = new DelProjekt();
+        dp.setDelProjektId(rs.getInt("delprojekt_id"));
+        dp.setProjectId(rs.getInt("project_id"));
+        dp.setName(rs.getString("name"));
+        dp.setDescription(rs.getString("description"));
+        return dp;
     }
 }

@@ -42,16 +42,7 @@ public class ProjektRepository {
 
     // 3. GET BY ID
     public Projekt getById(int id) {
-        String sql = "SELECT * FROM project WHERE project_id = ?";
-        return jdbc.queryForObject(sql, (rs, rowNum) -> {
-            Projekt p = new Projekt();
-            p.setProjectId(rs.getInt("project_id"));
-            p.setName(rs.getString("name"));
-            p.setDescription(rs.getString("description"));
-            p.setStartDate(rs.getDate("start_date") != null ? rs.getDate("start_date").toLocalDate() : null);
-            p.setEndDate(rs.getDate("end_date") != null ? rs.getDate("end_date").toLocalDate() : null);
-            return p;
-        }, id);
+        return findById(id);
     }
 
     // 4. UPDATE
@@ -70,6 +61,7 @@ public class ProjektRepository {
         String sql = "DELETE FROM project WHERE project_id = ?";
         jdbc.update(sql, id);
     }
+
     public Projekt findById(int projectId) {
         String sql = "SELECT * FROM project WHERE project_id = ?";
         return jdbc.queryForObject(sql, (rs, rowNum) -> {
@@ -81,9 +73,4 @@ public class ProjektRepository {
             p.setEndDate(rs.getDate("end_date") != null ? rs.getDate("end_date").toLocalDate() : null);
             return p;
         }, projectId);
-    }
-
-
-
-
-}
+    }}

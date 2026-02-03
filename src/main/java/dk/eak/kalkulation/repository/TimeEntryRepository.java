@@ -15,14 +15,12 @@ public class TimeEntryRepository {
 
     public List<TimeEntry> findByOpgaveId(int opgaveId) {
         String sql = "SELECT * FROM time_entry WHERE opgave_id = ? ORDER BY work_date, time_entry_id";
-        return jdbc.query(sql, (rs, rn) -> {
-            TimeEntry t = new TimeEntry();
-            t.setTimeEntryId(rs.getInt("time_entry_id"));
-            t.setOpgaveId(rs.getInt("opgave_id"));
-            t.setWorkDate(rs.getDate("work_date").toLocalDate());
-            t.setHours(rs.getInt("hours"));
-            return t;
-        }, opgaveId);
+        return jdbc.query(sql, (rs, rn) -> mapTimeEntry(rs), opgaveId);
+    }
+
+    public TimeEntry findById(int timeEntryId) {
+        String sql = "SELECT * FROM time_entry WHERE time_entry_id = ?";
+        return jdbc.queryForObject(sql, (rs, rn) -> mapTimeEntry(rs), timeEntryId);
     }
 
     public int sumHoursByProjektId(int projektId) {
@@ -41,7 +39,23 @@ public class TimeEntryRepository {
         jdbc.update(sql, t.getOpgaveId(), Date.valueOf(t.getWorkDate()), t.getHours());
     }
 
+    public void update(TimeEntry t) {
+        String sql = "UPDATE time_entry SET opgave_id = ?, work_date = ?, hours = ? WHERE time_entry_id = ?";
+        jdbc.update(sql, t.getOpgaveId(), Date.valueOf(t.getWorkDate()), t.getHours(), t.getTimeEntryId());
+    }
+
     public void delete(int timeEntryId) {
         jdbc.update("DELETE FROM time_entry WHERE time_entry_id = ?", timeEntryId);
     }
+
+    // Helper method to map ResultSet to TimeEntry
+    private TimeEntry mapTimeEntry(java.sql.ResultSet rs) throws java.sql.SQLException {
+        TimeEntry t = new TimeEntry();
+        t.setTimeEntryId(rs.getInt("time_entry_id"));
+        t.setOpgaveId(rs.getInt("opgave_id"));
+        t.setWorkDate(rs.getDate("work_date").toLocalDate());
+        t.setHours(rs.getInt("hours"));
+        return t;
+    }
 }
+

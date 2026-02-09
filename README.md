@@ -9,7 +9,6 @@ Teknologier
 Java 21
 Spring Boot
 Thymeleaf
-JPA (Hibernate)
 MySQL (eller H2 til udvikling)
 Arkitektur
 Projektet er bygget efter MVC-principper:
